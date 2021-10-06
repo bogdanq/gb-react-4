@@ -6,6 +6,12 @@ const message = "Работает! Восславим же Господа! Ал�
 export default function App() {
 
     return (
-        true
+        <div className="Message mt-5">
+            <Message className=""
+                message={message}
+            >
+
+            </Message>
+        </div>
       );
     }
