@@ -4,7 +4,6 @@ import "../styles/App.css";
 const message = "Работает! Восславим же Господа! Аллилуйя!"
 
 export default function App() {
-
     return (
         <div className="Message mt-5">
             <Message className=""
@@ -13,5 +12,5 @@ export default function App() {
 
             </Message>
         </div>
-      );
-    }
+    );
+}
