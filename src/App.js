@@ -1,47 +1,108 @@
 import React from "react";
 import "./App.css";
 
-// props = {name: "test"}
-// react component
-export function App({ children, name, test2, myFoo, component }) {
-  // console.log(props);
-  // const { children, name } = props;
-
-  // react element
-  return (
-    <div className="App" style={{ background: "blue" }}>
-      <div>hello react, {name}</div>
-      <div>{children}</div>
-
-      <ul>
-        {test2.map((item) => (
-          <li onClick={() => myFoo(item)} key={item}>
-            {item}
-          </li>
-        ))}
-      </ul>
-
-      <AppClass name={name} />
-
-      {component}
-    </div>
-  );
-}
-
 export class AppClass extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log("constructor");
+    this.state = {
+      count: 0,
+    };
+    // this.foo = this.foo.bind(this);
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    console.log("getDerivedStateFromProps");
+    // return {
+    //   id: "test",
+    // };
+
+    return null;
+  }
+
+  test = () => {
+    console.log("test");
+  };
+
+  // синхронный
+  componentDidMount() {
+    // запросы
+    // работа с ДОМ
+    // подписки
+    // мутации
+    // таймеры
+    // обновление состояния
+    console.log("componentDidMount");
+    this.handleClick();
+
+    document.addEventListener("click", this.test);
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log("shouldComponentUpdate");
+    // if (nextProps.count === this.props.count) {
+    //   return false;
+    // }
+
+    return true;
+  }
+
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    console.log("getSnapshotBeforeUpdate");
+    // return null
+    return {
+      position: "300px",
+    };
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log("componentDidUpdate", snapshot);
+    // запросы
+    // работа с ДОМ
+    // подписки
+    // мутации
+    // таймеры
+    // обновление состояния
+
+    if (prevState.count === 3) {
+      this.handleClick();
+    }
+  }
+
+  handleClick = () => {
+    this.setState(
+      (state) => ({ ...state, count: state.count + 1 })
+      // () => {
+      //   console.log("update", this.state);
+      // }
+    );
+    // this.forceUpdate();
+    // updater
+    // {}
+    // (state) => ({})
+
+    // callback () => {}
+  };
+
+  componentWillUnmount() {
+    // удалять таймеры
+    // делать отписки
+    // очищать состояние
+    console.log("componentWillUnmount");
+    document.removeEventListener("click", this.test);
+  }
+
   render() {
     // this.props
     const { name } = this.props;
+    const { count } = this.state;
 
-    return <div className="App">AppClass {name}</div>;
+    console.log("render", this.state);
+
+    return (
+      <div className="App" onClick={this.handleClick}>
+        AppClass {count}
+      </div>
+    );
   }
 }
-
-export const AppWitoutJSX = ({ children, name }) => {
-  return React.createElement(
-    "div",
-    { className: "App" },
-    React.createElement("div", null, `hello react ${name}`),
-    React.createElement("div", null, children)
-  );
-};
