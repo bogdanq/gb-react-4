@@ -1,5 +1,5 @@
-function Message({message}) {
-    return message;
-  }
+// function Message({message}) {
+//     return message;
+//   }
   
-  export default Message;
+//   export default Message;
