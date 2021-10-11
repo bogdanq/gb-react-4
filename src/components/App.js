@@ -1,10 +1,6 @@
 import React, {
     useState,
-    useMemo,
-    useCallback,
     useEffect,
-    useLayoutEffect,
-    useRef,
   } from "react";
 
 import "../styles/App.css";
@@ -17,44 +13,52 @@ export default function App() {
         }    
         ]);
 
-    const [inputValue, setInputValue] = useState("");
-    
+    const [inputValueAuthor, setInputValueAuthor] = useState("");
+    const [textareaValueMessage, setTextareaValueMessage] = useState("");
+
+
+    function sendMessage() {
+        setMessageList([...messageList, 
+            {author: inputValueAuthor, message: textareaValueMessage}, 
+            {author: "bot", message: "Hello, " + inputValueAuthor}])
+    }
+
+    useEffect(() => {
+        
+        setInputValueAuthor("")
+        setTextareaValueMessage("")
+
+    }, [messageList])
 
     return (
-        <>
-            {
-                messageList.map((message) => 
-                <>
-                    <div>User: {message.author}</div>
-                    <div>Message: {message.message}</div>
-                </>)
-                
-            }
-            <input 
-                placeholder="input"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-            ></input> 
+        <div className="d-flex ml-5 mt-5 justify-content-around">
+            <div className="d-flex flex-column mx-5">
+                <input 
+                    placeholder="Author"
+                    value={inputValueAuthor}
+                    onChange={(e) => setInputValueAuthor(e.target.value)}
+                ></input> 
+                <textarea className="my-3"
+                    placeholder="Message"
+                    value={textareaValueMessage}
+                    onChange={(e) => setTextareaValueMessage(e.target.value)}
+                ></textarea> 
 
-            <button className="sendMessageBtn" onClick={() => console.log()}>
-                Send Message
-          </button>
-        </>
+                <button className="sendMessageBtn w-100" onClick={sendMessage}>
+                    Send Message
+                </button>
+            </div>
+
+            <div className="d-flex flex-column align-items-center mx-5">
+                {
+                    messageList.map((message) => 
+                        <div className="d-flex flex-column mt-3 text-left">
+                            <div>User: {message.author}</div>
+                            <div>Message: {message.message}</div>
+                        </div>
+                    )
+                }
+            </div>
+        </div>
     );
 }
-
-{/* <button className="sendMessageBtn" onClick={() => {
-    setMessageList((state) => ({...state, message: "vast"}))
-}}>
-    Send Message
-</button> */}
-
-  //     {
-    //         author: "Kenny",
-    //         message: "(muffled) Gohthe!"
-    //     },
-    //     {
-    //         author: "Cartman",
-    //         message: "Screw You Guys, I'm Going Home!"
-    //     }     
-// setMessageList((prevmessageList) => prevmessageList);
