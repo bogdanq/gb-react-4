@@ -1,143 +1,67 @@
-// @TODO useContext  рассмотреть
-import React, {
-  useState,
-  useMemo,
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-} from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import { AppClass } from "./App";
+import { ThemeProvider, createTheme } from "@mui/material";
+import React, { useReducer, useState } from "react";
+import { Header, MessageList } from "./components";
+import "./global.css";
 
-const getCount = () => {
-  return { count: 0 };
+const reducer = (state, payload) => {
+  switch (payload.type) {
+    case "increment":
+      return {
+        ...state,
+        count: state.count + 1,
+      };
+    case "decrement":
+      return {
+        ...state,
+        count: state.count - 1,
+      };
+    default:
+      return state;
+  }
 };
 
-const a = [1, 2, 3, 4];
-
-// пользовательский хук
-const useCounter = (initialState = 0) => {
-  const [value, setValue] = useState(initialState);
-
-  // уникальная логика для переиспользования
-
-  return {
-    value,
-    setValue,
-  };
+const initialState = {
+  count: 0,
 };
 
-const Test = () => {
-  const { value, setValue } = useCounter();
-  const [messageList, setMessageList] = useState([
-    { author: "Bot", message: "Hello !" },
-  ]);
-  const [inputValue, setInputValue] = useState("");
+const TestReducer = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  // const [isVisible, toogle] = useReducer((state) => !state, true);
+  const [isVisible, toogle] = useState(true);
 
   return (
     <div>
-      <h1>Test {value}</h1>
-      <h1>Input {inputValue}</h1>
-      <div>
-        <input
-          placeholder="input"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-        />
-        <button
-          onClick={() => {
-            // setMessageList обновить [...messageList, новое сообщение]
-          }}
-        >
-          send
-        </button>
-      </div>
+      <button onClick={() => toogle(!isVisible)}>toogle</button>
+
+      {isVisible && (
+        <>
+          <div>TestReducer {state.count}</div>
+          <button onClick={() => dispatch({ type: "increment" })}>
+            Increment
+          </button>
+          <button onClick={() => dispatch({ type: "decrement" })}>
+            Decrement
+          </button>
+        </>
+      )}
     </div>
   );
 };
 
-const Component = () => {
-  const [count, setCount] = useState({ count: 0 });
-  const [visible, setVisible] = useState(false);
-  const [position, setPosition] = useState(0);
-  const { value, setValue } = useCounter();
-  const ref = useRef(null);
-  // const [count, setCount] = useState(getCount);
+const dark = createTheme({});
 
-  const findedUser = useMemo(() => a.find((user) => user === 4), []);
-  const findedUserCb = useCallback(() => a.find((user) => user === 4), []);
+const light = createTheme({
+  theme: {
+    color: "red",
+  },
+});
 
-  const cb = () => setCount((state) => ({ ...state, count: state.count + 1 }));
-
-  useEffect(() => {
-    const foo = () => {
-      console.log("test effect");
-    };
-    // запросы
-    // работа с ДОМ
-    // подписки
-    // мутации
-    // таймеры
-    // обновление состояния
-    // ref
-    console.log("useEffect ref");
-
-    ref.current.focus();
-
-    document.addEventListener("click", foo);
-
-    return () => {
-      console.log("unmount");
-      document.removeEventListener("click", foo);
-    };
-  }, []);
-
-  // useEffect(() => {
-  //   if (!position) {
-  //     // setValue(Math.random() * 1000);
-  //     setPosition(200);
-  //   }
-  // }, [position]);
-
-  useLayoutEffect(() => {
-    if (!position) {
-      // setValue(Math.random() * 1000);
-      setPosition(200);
-    }
-  }, [position]);
-
-  console.log("render");
-
-  return (
-    <>
-      {/* <div className="App" onClick={() => setCount(count + 1)}> */}
-      <div className="App" onClick={cb}>
-        Function count {count.count}
-        <button onClick={() => setVisible(!visible)}>setVisible</button>
-        <button onClick={() => setPosition(0)}>setPosition</button>
-        {visible && (
-          <AppClass test="tets" count={count} findedUserCb={findedUserCb} />
-        )}
-        <input placeholder="input" ref={ref} />
-        <div
-          style={{
-            transition: "all 0.5",
-            position: "absolute",
-            // left: position,
-            left: 0,
-            top: 0,
-            width: 200,
-            height: 200,
-            background: "red",
-          }}
-        />
-        <div onClick={() => setValue(100)}>Value {value}</div>;
-        <Test />
-      </div>
-    </>
-  );
-};
-
-ReactDOM.render(<Component />, document.getElementById("root"));
+ReactDOM.render(
+  <ThemeProvider theme={light}>
+    <TestReducer />
+    <Header />
+    <MessageList />
+  </ThemeProvider>,
+  document.getElementById("root")
+);
