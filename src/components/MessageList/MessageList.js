@@ -7,12 +7,12 @@ export const MessageList = () => {
     const [messages, setMessages] = useState([
         { author: "Bot", message: "Hello!" }
     ]);
-    const [textAreaValue, setTextAreaMessage] = useState("");
+    const [textAreaValue, setTextAreaValue] = useState("");
 
-    const handleSendMessage = () => {
+    const sendMessage = () => {
         if(textAreaValue) {
             setMessages((messages) => [...messages, { textAreaValue, author: "User" }]);
-            setTextAreaMessage("")
+            setTextAreaValue("")
         }  
     }
 
@@ -23,11 +23,8 @@ export const MessageList = () => {
         if (lastMessage?.author === "User") {
 
             timerId = setTimeout(() => {
-              setMessages((state) => [
-                ...state,
-                { textAreaValue: "Hello, " + lastMessage?.author, author: "Bot" },
-              ]);
-            }, 1500);
+              setMessages((messages) => [...messages, { textAreaValue: "Hello, " + lastMessage?.author, author: "Bot" }]);
+            }, 500);
 
           }
 
@@ -41,23 +38,22 @@ export const MessageList = () => {
         <>
             <div>
             {messages.map((message, id) => (
-          <Message key={message.textAreaValue} message={message} />
-        ))}
+                <Message key={message.textAreaValue} message={message} />
+            ))}
             </div>
 
             <input
                 value={textAreaValue}
-                onChange={(e) => setTextAreaMessage(e.target.value)}
+                onChange={(e) => setTextAreaValue(e.target.value)}
                 placeholder="Введите сообщение..."
             ></input>
 
-            <button className="sendMessageBtn w-100" onClick={handleSendMessage}>Send</button>
+            <button className="sendMessageBtn w-100" onClick={sendMessage}>Send</button>
         </>
 
-
-
-
-        // <div className="d-flex ml-5 mt-5 justify-content-around">
+    );
+}
+ // <div className="d-flex ml-5 mt-5 justify-content-around">
         //     <div className="d-flex flex-column mx-5">
         //         <textarea className="my-3"
         //             placeholder="Message"
@@ -82,7 +78,4 @@ export const MessageList = () => {
           //      }
         //</div>
         //</div>
-    );
-}
-
 
