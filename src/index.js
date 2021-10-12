@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './components/App';
+import './global.css';
+import { MessageList } from "./components/MessageList/MessageList";
 
 ReactDOM.render(
   <>
-    <div className="App">
-      <App>
-      </App>
+    <div className="App container">
+      <MessageList />
     </div>
   </>,
 
