@@ -1,14 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './global.css';
 import { MessageList } from "./components/MessageList/MessageList";
+import './global.css';
+
 
 ReactDOM.render(
-  <>
-    <div className="App container">
-      <MessageList />
-    </div>
-  </>,
+
+    <MessageList />,
+
 
   document.getElementById("root")
 );

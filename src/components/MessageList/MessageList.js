@@ -1,20 +1,26 @@
 import { useState, useEffect } from "react";
 import { Message } from "./Message";
+import { Input, InputAdornment } from "@mui/material";
+import { Send } from "@mui/icons-material";
 import "./styles/MessageList.css"
 
 export const MessageList = () => {
 
-    const [messages, setMessages] = useState([
-        { author: "Bot", message: "Hello!" }
-    ]);
+    const [messages, setMessages] = useState([]);
     const [textAreaValue, setTextAreaValue] = useState("");
 
     const sendMessage = () => {
         if(textAreaValue) {
             setMessages((messages) => [...messages, { textAreaValue, author: "User" }]);
             setTextAreaValue("")
-        }  
+        }
     }
+
+    const handlePressInput = ({ code }) => {
+        if (code === "Enter" && textAreaValue) {
+            sendMessage();
+        }
+      };
 
     useEffect(() => {
         const lastMessage = messages[messages.length - 1];
@@ -24,12 +30,11 @@ export const MessageList = () => {
 
             timerId = setTimeout(() => {
               setMessages((messages) => [...messages, { textAreaValue: "Hello, " + lastMessage?.author, author: "Bot" }]);
-            }, 500);
-
+            }, 500);  
           }
 
           return () => {
-            clearInterval(timerId);
+            clearTimeout(timerId);
           };
 
     }, [messages])
@@ -38,44 +43,27 @@ export const MessageList = () => {
         <>
             <div>
             {messages.map((message, id) => (
-                <Message key={message.textAreaValue} message={message} />
+                <Message key={message.value} message={message} />
             ))}
             </div>
 
-            <input
+            <Input 
+                inputRef={input => input && input.focus()}
+                autoFocus
+                onKeyPress={handlePressInput}
                 value={textAreaValue}
                 onChange={(e) => setTextAreaValue(e.target.value)}
                 placeholder="Введите сообщение..."
-            ></input>
-
-            <button className="sendMessageBtn w-100" onClick={sendMessage}>Send</button>
+                endAdornment={
+                    <InputAdornment position="end">
+                      {textAreaValue && (
+                            <Send className="icon" onClick={sendMessage} />
+                      )}
+                    </InputAdornment>
+                  }
+            ></Input>
         </>
 
     );
 }
- // <div className="d-flex ml-5 mt-5 justify-content-around">
-        //     <div className="d-flex flex-column mx-5">
-        //         <textarea className="my-3"
-        //             placeholder="Message"
-        //             value={textareaValueMessage}
-        //             onChange={(e) => setTextareaValueMessage(e.target.value)}
-        //         ></textarea> 
-
-        //         <button className="sendMessageBtn w-100" onClick={handleSendMessage}>
-        //             Send Message
-        //         </button>
-        //     </div>
-
-        //     <div className="d-flex flex-column align-items-center mx-5">
-        //         <Message />
-               // {
-                //    messageList.map((message) => 
-                 //       <div className="d-flex flex-column mt-3 text-left">
-                  //          <div>User: {message.author}</div>
-                  //          <div>Message: {message.message}</div>
-                  //      </div>
-                  //  )
-          //      }
-        //</div>
-        //</div>
 
