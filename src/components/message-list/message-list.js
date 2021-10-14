@@ -12,9 +12,6 @@ const useStyles = makeStyles((ctx) => {
       padding: "10px 15px",
       fontSize: "15px",
     },
-    wrapper: {
-      border: "1px solid red",
-    },
   });
 });
 
@@ -66,7 +63,7 @@ export const MessageList = () => {
   }, [messages]);
 
   return (
-    <div className={s.wrapper}>
+    <>
       <div>
         {messages.map((message, id) => (
           <Message key={message.value} message={message} />
@@ -88,6 +85,6 @@ export const MessageList = () => {
           </InputAdornment>
         }
       />
-    </div>
+    </>
   );
 };

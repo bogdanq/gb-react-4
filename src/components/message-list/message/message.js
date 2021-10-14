@@ -1,4 +1,4 @@
-import { PureComponent, memo } from "react";
+import { memo } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import styles from "./message.module.css";
