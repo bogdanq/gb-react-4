@@ -74,7 +74,7 @@ export const MessageList = () => {
 
                   <List className="w-25 mr-3">
                     {chats.map((el) => {
-                      return  <ListItem disableGutters key={el.id}>
+                      return  <ListItem disableGutters key={el.id} sx={{ borderBottom: '1px solid grey' }}>
                                 <ListItemButton>
                                   
                                   <ListItemAvatar>
@@ -87,9 +87,9 @@ export const MessageList = () => {
                                   />
 
                                 </ListItemButton>
-                              </ListItem>
-                                
-                    })}
+                              </ListItem>  
+                      })
+                    }
 
 
                   </List>
@@ -120,46 +120,3 @@ export const MessageList = () => {
 
     );
 }
-
-
-                    {/* <ListItem disableGutters>
-                      <ListItemButton>
-
-                        <ListItemAvatar>
-                          <Avatar alt="Eric Theodore Cartman" src="" />
-                        </ListItemAvatar>
-
-                        <ListItemText
-                          primary="Chat name 1"
-                          secondary={
-                            <>
-                              {"Chat text"}
-                            </>
-                          }
-                        />
-                        
-                      </ListItemButton> 
-                    </ListItem>
-
-                    <Divider />
-
-                    <ListItem disableGutters>
-                      <ListItemButton>
-
-                        <ListItemAvatar>
-                          <Avatar alt="Eric Theodore Cartman" src="" />
-                        </ListItemAvatar>
-
-                        <ListItemText
-                          primary="Chat name 2"
-                          secondary={
-                            <>
-                              {"Chat text"}
-                            </>
-                          }
-                        />
-                        
-                      </ListItemButton> 
-                    </ListItem>
-
-                    <Divider /> */}
