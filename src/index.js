@@ -1,7 +1,9 @@
 import ReactDOM from "react-dom";
+import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material";
 import React from "react";
-import { Header, MessageList, Layout, ChatList } from "./components";
+import { ChatPage } from "./pages";
+// import { TestRoute } from "./components/test-route";
 import "./global.css";
 
 const light = createTheme({
@@ -11,12 +13,19 @@ const light = createTheme({
 });
 
 ReactDOM.render(
-  <ThemeProvider theme={light}>
-    <Layout
-      header={<Header />}
-      chats={<ChatList />}
-      messages={<MessageList />}
-    />
-  </ThemeProvider>,
+  <BrowserRouter>
+    <ThemeProvider theme={light}>
+      <Switch>
+        <Route path="/chat">
+          <ChatPage />
+        </Route>
+
+        <Route path="*">
+          <h1>404 page</h1>
+          <Link to="/chat">go to Chat</Link>
+        </Route>
+      </Switch>
+    </ThemeProvider>
+  </BrowserRouter>,
   document.getElementById("root")
 );
