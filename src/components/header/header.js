@@ -1,5 +1,17 @@
 import styles from "./header.module.css";
+import { Link, useParams } from "react-router-dom";
+import { Profile } from "../../pages";
 
 export function Header() {
-  return <div className={styles.header}>header</div>;
+  const params = useParams();
+
+  return (
+    <>
+      <div>
+      <Link to={`/profile`}>
+          <button>profile</button>
+        </Link>
+      </div>
+    </>
+  )
 }

@@ -20,6 +20,10 @@ ReactDOM.render(
           <ChatPage />
         </Route>
 
+        <Route path="/profile">
+          <h1>favya</h1>
+        </Route>
+
         <Route path="*">
           <h1>404 page</h1>
           <Link to="/chat">go to Chat</Link>
