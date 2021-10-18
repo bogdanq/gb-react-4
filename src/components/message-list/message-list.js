@@ -1,7 +1,6 @@
 import { Input, InputAdornment } from "@mui/material";
 import { Send } from "@mui/icons-material";
 import { createStyles, makeStyles } from "@mui/styles";
-import { useState, useEffect } from "react";
 import { Message } from "./message";
 import styles from "./message-list.module.css";
 
@@ -15,22 +14,23 @@ const useStyles = makeStyles((ctx) => {
   });
 });
 
-export const MessageList = ({ messages, sendMessage }) => {
+export const MessageList = ({
+  messages,
+  sendMessage,
+  value,
+  handleChangeValue,
+}) => {
   const s = useStyles();
-
-  const [value, setValue] = useState("");
 
   const handlePressInput = ({ code }) => {
     if (code === "Enter" && value) {
       sendMessage({ value, author: "User" });
-      setValue("");
     }
   };
 
   const handleSendMessage = () => {
     if (value) {
       sendMessage({ value, author: "User" });
-      setValue("");
     }
   };
 
@@ -45,7 +45,7 @@ export const MessageList = ({ messages, sendMessage }) => {
       <Input
         className={s.input}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={handleChangeValue}
         placeholder="Введите сообщение..."
         fullWidth={true}
         onKeyPress={handlePressInput}

@@ -3,7 +3,7 @@ import { AccountCircle } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
 import styles from "./chat.module.css";
 
-const useStyles = makeStyles(() => {
+const useStyles = makeStyles((theme) => {
   return {
     item: {
       "&.Mui-selected": {

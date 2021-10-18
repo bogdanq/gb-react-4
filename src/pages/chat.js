@@ -8,13 +8,6 @@ import {
   MessageProvider,
 } from "../components";
 
-// @TODO
-// const messages =  {
-//   room1: [],
-//   room2: [],
-// }
-// messages[roomId]
-
 export function ChatPage() {
   const { push } = useHistory();
 
@@ -37,9 +30,21 @@ export function ChatPage() {
       <Route path={["/chat/:roomId", "/chat"]}>
         <MessageProvider>
           {([state, actions]) => (
-            <MainTemplate header={<Header />} chats={<ChatList />}>
+            <MainTemplate
+              header={<Header test="test" />}
+              chats={
+                <ChatList
+                  {...state}
+                  createConversation={actions.createConversation}
+                />
+              }
+            >
               <Route path="/chat/:roomId">
-                <MessageList {...state} sendMessage={actions.sendMessage} />
+                <MessageList
+                  {...state}
+                  sendMessage={actions.sendMessage}
+                  handleChangeValue={actions.handleChangeValue}
+                />
               </Route>
 
               <Route exact path="/chat">
