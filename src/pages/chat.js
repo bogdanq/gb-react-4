@@ -39,7 +39,7 @@ export function ChatPage() {
           {([state, actions]) => (
             <MainTemplate header={<Header />} chats={<ChatList />}>
               <Route path="/chat/:roomId">
-                <MessageList {...state} sendMessage={actions.sendMessage} />
+                <MessageList {...state} sendMessage={actions.sendMessage} handleChangeValue={actions.handleChangeValue}/>
               </Route>
 
               <Route exact path="/chat">

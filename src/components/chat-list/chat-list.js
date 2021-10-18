@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Chat } from "./chat";
 
 export const ChatList = () => {
-  const [chats] = useState(["Eric Theodore Cartman", "Kyle Broflovski", "Kenny McCormick"]); // {title: "room1", value: "input value"}
+  const [chats] = useState(["room1", "room2", "room3"]); // {title: "room1", value: "input value"}
   const params = useParams();
 
   return (

@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 export function MessageProvider({ children }) {
   const { roomId } = useParams();
   // ChatList передать value в дочерний инпут
-  const [conversations] = useState([
+  const [conversations, setConversations] = useState([
     { title: "room1", value: "input value 1" },
     { title: "room2", value: "input value 2" },
   ]);
@@ -17,17 +17,29 @@ export function MessageProvider({ children }) {
   const state = useMemo(() => {
     return {
       messages: messages[roomId] ?? [],
-      value: "", // придумать как получить значение текущей комнаты
+      // value: conversations[roomId][0].value, // придумать как получить значение текущей комнаты
+      value: conversations[0].value,
       conversations,
       allMessages: messages,
     };
   }, [roomId, messages, conversations]);
 
   const actions = useMemo(() => {
+    console.log( 1 )
     return {
-      handleChangeValue: () => {
+      handleChangeValue: (e) => {
+        const handleInputValue = e
+
+        setConversations(() => {
+          console.log(handleInputValue)
+
+          return {
+
+          };
+        })
         // придумать как обновлять value на onChange
       },
+
       createConversation: () => {
         // придумать как добавить чат
       },

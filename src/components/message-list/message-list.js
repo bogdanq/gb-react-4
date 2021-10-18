@@ -15,22 +15,22 @@ const useStyles = makeStyles((ctx) => {
   });
 });
 
-export const MessageList = ({ messages, sendMessage }) => {
+export const MessageList = ({ messages, sendMessage, value, handleChangeValue }) => {
   const s = useStyles();
 
-  const [value, setValue] = useState("");
+  // const [value, setValue] = useState("");
 
   const handlePressInput = ({ code }) => {
     if (code === "Enter" && value) {
       sendMessage({ value, author: "User" });
-      setValue("");
+      // value("");
     }
   };
 
   const handleSendMessage = () => {
     if (value) {
       sendMessage({ value, author: "User" });
-      setValue("");
+      // value("");
     }
   };
 
@@ -45,7 +45,7 @@ export const MessageList = ({ messages, sendMessage }) => {
       <Input
         className={s.input}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => handleChangeValue(e.target.value)}
         placeholder="Введите сообщение..."
         fullWidth={true}
         onKeyPress={handlePressInput}
