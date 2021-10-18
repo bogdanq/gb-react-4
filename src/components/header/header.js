@@ -8,8 +8,8 @@ export function Header() {
   return (
     <>
       <div>
-      <Link to={`/profile`}>
-          <button>profile</button>
+        <Link to={`/profile`}>
+          <button>profile page</button>
         </Link>
       </div>
     </>

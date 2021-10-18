@@ -2,7 +2,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material";
 import React from "react";
-import { ChatPage } from "./pages";
+import { ChatPage, ProfilePage } from "./pages";
 // import { TestRoute } from "./components/test-route";
 import "./global.css";
 
@@ -21,7 +21,8 @@ ReactDOM.render(
         </Route>
 
         <Route path="/profile">
-          <h1>favya</h1>
+          <ProfilePage />
+          <Link to="/chat">go to Chat</Link>
         </Route>
 
         <Route path="*">
