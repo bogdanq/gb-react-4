@@ -14,7 +14,7 @@ export const Message = memo(({ message }) => {
     >
       <h3>{value}</h3>
       <p>{author}</p>
-      <p>{ new Date().toLocaleTimeString().slice(0,-3) }</p>
+      <p>12.03</p>
     </div>
   );
 });

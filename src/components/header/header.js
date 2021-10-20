@@ -1,17 +1,26 @@
+import { useContext } from "react";
 import styles from "./header.module.css";
-import { Link, useParams } from "react-router-dom";
-import { Profile } from "../../pages";
+import { ThemeContext } from "../../contexts";
+import React from "react";
+import { Link } from "react-router-dom";
 
-export function Header() {
-  const params = useParams();
+export const Header = (props) => {
+  const {
+    themeSetter,
+    theme: { theme },
+  } = useContext(ThemeContext);
 
   return (
     <>
-      <div>
-        <Link to={`/profile`}>
-          <button>profile page</button>
-        </Link>
-      </div>
-    </>
-  )
-}
+    <div>
+      <Link to={`/profile`}>
+        <button>profile page</button>
+      </Link>
+    </div>
+    <div className={styles.header} style={{ background: theme.color }}>
+      <button onClick={() => themeSetter("light")}>light</button>
+      <button onClick={() => themeSetter("dark")}>dark</button>
+    </div>
+  </>
+  );
+};

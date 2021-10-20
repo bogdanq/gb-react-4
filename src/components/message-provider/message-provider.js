@@ -1,47 +1,57 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { nanoid } from "nanoid";
 import { useParams } from "react-router-dom";
 
-// @TODO перенести состояние из messageList/ChatList
 export function MessageProvider({ children }) {
   const { roomId } = useParams();
-  // ChatList передать value в дочерний инпут
+
   const [conversations, setConversations] = useState([
-    { title: "room1", value: "input value 1" },
-    { title: "room2", value: "input value 2" },
+    { title: "room1", value: "" },
+    { title: "room2", value: "" },
   ]);
   const [messages, setMessages] = useState({
-    room1: [{ value: "Room1", author: "Bot", id: new Date() }],
-    room2: [{ value: "Room2", author: "Bot", id: new Date() }],
+    room1: [{ value: "Room1", author: "Bot", id: nanoid() }],
+    room2: [{ value: "Room2", author: "Bot", id: nanoid() }],
   });
+
+  const updateConversationsValue = useCallback(
+    (value = "") => {
+      setConversations((conversations) => {
+        return conversations.map((conversation) => {
+          return conversation.title === roomId
+            ? { ...conversation, value }
+            : conversation;
+        });
+      });
+    },
+    [roomId]
+  );
 
   const state = useMemo(() => {
     return {
       messages: messages[roomId] ?? [],
-      // value: conversations[roomId][0].value, // придумать как получить значение текущей комнаты
-      value: conversations[0].value,
+      value:
+        conversations.find((conversation) => conversation.title === roomId)
+          ?.value ?? "",
       conversations,
       allMessages: messages,
     };
   }, [roomId, messages, conversations]);
 
   const actions = useMemo(() => {
-    console.log( 1 )
     return {
       handleChangeValue: (e) => {
-        const handleInputValue = e
+        const value = e?.target?.value ?? "";
 
-        setConversations(() => {
-          console.log(handleInputValue)
-
-          return {
-
-          };
-        })
-        // придумать как обновлять value на onChange
+        updateConversationsValue(value);
       },
-
       createConversation: () => {
-        // придумать как добавить чат
+        const title = prompt("введите название беседы:");
+
+        setConversations((conversations) => [
+          ...conversations,
+          { title, value: "" },
+        ]);
       },
       sendMessage: (message) => {
         const newMessage = { ...message, id: new Date() };
@@ -52,9 +62,11 @@ export function MessageProvider({ children }) {
             [roomId]: [...(messages[roomId] ?? []), newMessage],
           };
         });
+
+        updateConversationsValue();
       },
     };
-  }, [roomId]);
+  }, [roomId, updateConversationsValue]);
 
   useEffect(() => {
     const messagesByRoomId = messages[roomId] ?? [];
@@ -63,7 +75,7 @@ export function MessageProvider({ children }) {
 
     if (lastMessage?.author === "User") {
       timerId = setTimeout(() => {
-        actions.sendMessage({ value: "In this you are right: " + lastMessage?.value, author: "Bot" });
+        actions.sendMessage({ value: "Hello from Bot", author: "Bot" });
       }, 500);
     }
 
