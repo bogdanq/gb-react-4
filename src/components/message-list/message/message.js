@@ -1,10 +1,11 @@
+import { format } from "date-fns";
 import { memo } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import styles from "./message.module.css";
 
 export const Message = memo(({ message }) => {
-  const { author, value } = message;
+  const { author, value, date } = message;
 
   return (
     <div
@@ -14,7 +15,7 @@ export const Message = memo(({ message }) => {
     >
       <h3>{value}</h3>
       <p>{author}</p>
-      <p>12.03</p>
+      <p>{format(new Date(date), "yyyy-MM-dd")}</p>
     </div>
   );
 });

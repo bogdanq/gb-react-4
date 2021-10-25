@@ -6,6 +6,7 @@ import {
   handleChangeMessageValue,
   messageValueSelector,
 } from "../../store/conversations";
+import { sendMessageWithThunk, messagesSelector } from "../../store/messages";
 import { Message } from "./message";
 import styles from "./message-list.module.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,8 +22,7 @@ const useStyles = makeStyles((ctx) => {
   });
 });
 
-// @Todo перенести messages, sendMessage в редакс
-export const MessageList = ({ messages, sendMessage }) => {
+export const MessageList = () => {
   const s = useStyles();
   const { roomId } = useParams();
 
@@ -31,15 +31,17 @@ export const MessageList = ({ messages, sendMessage }) => {
   const dispatch = useDispatch();
   const value = useSelector(messageValue);
 
-  const handlePressInput = ({ code }) => {
-    if (code === "Enter" && value) {
-      sendMessage({ value, author: "User" });
-    }
-  };
+  const messages = useSelector(messagesSelector(roomId));
 
   const handleSendMessage = () => {
     if (value) {
-      sendMessage({ value, author: "User" });
+      dispatch(sendMessageWithThunk({ author: "User", value }, roomId));
+    }
+  };
+
+  const handlePressInput = ({ code }) => {
+    if (code === "Enter") {
+      handleSendMessage();
     }
   };
 

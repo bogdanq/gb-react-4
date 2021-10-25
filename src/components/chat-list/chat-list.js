@@ -25,7 +25,11 @@ export const ChatList = () => {
       <button onClick={createConversationWithName}>createConversation</button>
       {conversations.map((chat, index) => (
         <Link key={index} to={`/chat/${chat.title}`}>
-          <Chat title={chat.title} selected={chat.title === params.roomId} />
+          <Chat
+            title={chat.title}
+            selected={chat.title === params.roomId}
+            {...chat}
+          />
         </Link>
       ))}
     </List>
