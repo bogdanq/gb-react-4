@@ -14,3 +14,8 @@
 .description .text:last-child {
   text-align: right;
 }
+
+.description .text:nth-last-child(-n+2) {
+  text-align: right;
+}
+

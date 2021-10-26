@@ -1,6 +1,8 @@
 import { ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import { useSelector } from "react-redux";
 import { AccountCircle } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
+import { lastMessageSelector } from "../../../store/messages";
 import styles from "./chat.module.css";
 
 const useStyles = makeStyles((theme) => {
@@ -19,6 +21,8 @@ const useStyles = makeStyles((theme) => {
 export function Chat({ title, selected, handleListItemClick }) {
   const s = useStyles();
 
+  const lastMessage = useSelector(lastMessageSelector(title));
+
   return (
     <ListItem
       className={s.item}
@@ -31,7 +35,22 @@ export function Chat({ title, selected, handleListItemClick }) {
       </ListItemIcon>
       <div className={styles.description}>
         <ListItemText className={styles.text} primary={title} />
-        <ListItemText className={styles.text} primary="12.30" />
+        {lastMessage && (
+          <>
+            <ListItemText
+              className={styles.text}
+              primary={`${lastMessage.author}: ${lastMessage.value}`}
+            />
+            <ListItemText
+              className={styles.text}
+              primary={ new Date().toLocaleTimeString().slice(0,-3) }
+            />
+            <ListItemText
+              className={styles.text}
+              primary={ new Date().toISOString().slice(0, 10) }
+            />
+          </>
+        )}
       </div>
     </ListItem>
   );

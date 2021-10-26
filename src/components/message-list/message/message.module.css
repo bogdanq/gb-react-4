@@ -18,8 +18,18 @@
   color: #435564;
   text-align: right;
 }
+.message p:nth-last-child(-n+2) {
+  color: #435564;
+  text-align: right;
+}
 
 .currentMessage p:last-child {
   color: #45719f;
   text-align: right;
 }
+
+.currentMessage p:nth-last-child(-n+2) {
+  color: #45719f;
+  text-align: right;
+}
+
