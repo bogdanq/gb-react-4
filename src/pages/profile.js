@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Header } from "../components";
 import { toggleShowProfile, profileSelector } from "../store/profile";
 
 export function ProfilePage(props) {
@@ -16,8 +15,6 @@ export function ProfilePage(props) {
 
   return (
     <div>
-      <Header />
-
       <button onClick={() => dispatch(toggleShowProfile())}>
         toggle profile
       </button>

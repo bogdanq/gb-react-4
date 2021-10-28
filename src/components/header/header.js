@@ -10,6 +10,7 @@ const Menu = () => {
     <div>
       <Link to="/chat">Chat</Link>
       <Link to="/profile">Profile</Link>
+      <Link to="/gists">Gists</Link>
     </div>
   );
 };
