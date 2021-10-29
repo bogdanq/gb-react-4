@@ -3,6 +3,7 @@ import { List } from "@mui/material";
 import {
   conversationsSelector,
   createConversation,
+  deleteConversation,
 } from "../../store/conversations";
 import { Chat } from "./chat";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,13 +21,26 @@ export const ChatList = () => {
     }
   };
 
+  function deleteConversation(title) {
+    const roomId = title;
+    console.log(roomId);
+    dispatch(deleteConversation(roomId));
+  }
+
   return (
     <List component="nav">
       <button onClick={createConversationWithName}>createConversation</button>
       {conversations.map((chat, index) => (
-        <Link key={index} to={`/chat/${chat.title}`}>
-          <Chat title={chat.title} selected={chat.title === params.roomId} />
-        </Link>
+        <>
+          <Link key={index} to={`/chat/${chat.title}`}>
+            <Chat
+              title={chat.title}
+              selected={chat.title === params.roomId}
+              {...chat}
+            />
+          </Link>
+          <button onClick={() => deleteConversation(chat.title)}>Delete</button>
+        </>
       ))}
     </List>
   );

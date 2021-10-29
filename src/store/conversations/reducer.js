@@ -1,4 +1,9 @@
-import { HANDLE_CHANGE_MESSAGE_VALUE, CREATE_CONVERSATION, CLEAR_MESSAGE_VALUE } from "./types";
+import {
+  HANDLE_CHANGE_MESSAGE_VALUE,
+  CREATE_CONVERSATION,
+  CLEAR_MESSAGE_VALUE,
+  DELETE_CONVERSATION,
+} from "./types";
 
 const initialState = {
   conversations: [
@@ -14,32 +19,33 @@ const updateConversations = (state, roomId, value) =>
       : conversation;
   });
 
-  export const conversationsReducer = (state = initialState, action) => {
-    switch (action.type) {
-      case HANDLE_CHANGE_MESSAGE_VALUE:
-        return {
-          ...state,
-          conversations: updateConversations(
-            state,
-            action.payload.roomId,
-            action.payload.value
-          ),
-        };
-      case CREATE_CONVERSATION:
-        return {
-          ...state,
-          conversations: [
-            ...state.conversations,
-            { title: action.payload, value: "" },
-          ],
-        };
-      case CLEAR_MESSAGE_VALUE:
-        return {
-          ...state,
-          conversations: updateConversations(state, action.payload, ""),
-        };
-      default:
-        return state;
-    }
-  };
-  
+export const conversationsReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case HANDLE_CHANGE_MESSAGE_VALUE:
+      return {
+        ...state,
+        conversations: updateConversations(
+          state,
+          action.payload.roomId,
+          action.payload.value
+        ),
+      };
+    case CREATE_CONVERSATION:
+      return {
+        ...state,
+        conversations: [
+          ...state.conversations,
+          { title: action.payload, value: "" },
+        ],
+      };
+    case CLEAR_MESSAGE_VALUE:
+      return {
+        ...state,
+        conversations: updateConversations(state, action.payload, ""),
+      };
+    case DELETE_CONVERSATION:
+      return state;
+    default:
+      return state;
+  }
+};

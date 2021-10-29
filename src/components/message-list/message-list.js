@@ -5,13 +5,13 @@ import { createStyles, makeStyles } from "@mui/styles";
 import {
   handleChangeMessageValue,
   messageValueSelector,
-  clearMessageValue
 } from "../../store/conversations";
-import { messagesSelector, sendMessage } from "../../store/messages";
+import { sendMessageWithThunk, messagesSelector } from "../../store/messages";
 import { Message } from "./message";
 import styles from "./message-list.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useMemo } from "react";
+
 
 const useStyles = makeStyles((ctx) => {
   return createStyles({
@@ -37,8 +37,7 @@ export const MessageList = () => {
 
   const handleSendMessage = () => {
     if (value) {
-      dispatch(sendMessage({ author: "User", value }, roomId));
-      dispatch(clearMessageValue(roomId))
+      dispatch(sendMessageWithThunk({ author: "User", value }, roomId));
     }
   };
 

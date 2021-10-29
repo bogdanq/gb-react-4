@@ -1,4 +1,4 @@
-import { SEND_MESSAGE, CLEAR_INPUT } from "./types";
+import { SEND_MESSAGE } from "./types";
 
 const initialState = {
   messages: {
@@ -20,8 +20,6 @@ export const messagesReducer = (state = initialState, action) => {
           ],
         },
       };
-        
-
     default:
       return state;
   }
