@@ -4,7 +4,6 @@ import {
   conversationsSelector,
   createConversation,
   deleteConversation,
-  deleteConversationWithThunk
 } from "../../store/conversations";
 import { Chat } from "./chat";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,8 +22,9 @@ export const ChatList = () => {
   };
 
   function deleteConversation(title) {
-    // dispatch(deleteConversationWithThunk(roomId));
-    // dispatch(deleteConversation(roomId));
+    const roomId = title;
+    console.log(roomId);
+    dispatch(deleteConversation(roomId));
   }
 
   return (

@@ -1,4 +1,4 @@
-import { SEND_MESSAGE, DELETE_MESSAGE } from "./types";
+import { SEND_MESSAGE } from "./types";
 
 export const sendMessage = (message, roomId) => {
   return {
@@ -9,9 +9,3 @@ export const sendMessage = (message, roomId) => {
     },
   };
 };
-
-export const deleteMessage = (message, roomId) => ({
-  type: DELETE_MESSAGE,
-  payload: { message, roomId },
-});
-
