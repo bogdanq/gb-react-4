@@ -9,11 +9,6 @@
   line-height: 1.5;
 }
 
-.message div {
-  display: flex;
-  justify-content: space-between;
-}
-
 .currentMessage {
   margin: 0 0 10px auto;
   background-color: #2b5278;
