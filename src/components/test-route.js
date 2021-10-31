@@ -132,8 +132,5 @@ const Topics = () => {
 
 const Topic = () => {
   const params = useParams();
-
-  console.log(params);
-
   return <h1>topic id is - {params.topicId}</h1>;
 };

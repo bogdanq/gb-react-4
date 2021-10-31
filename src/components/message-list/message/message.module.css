@@ -9,6 +9,11 @@
   line-height: 1.5;
 }
 
+.message div {
+  display: flex;
+  justify-content: space-between;
+}
+
 .currentMessage {
   margin: 0 0 10px auto;
   background-color: #2b5278;
@@ -18,8 +23,18 @@
   color: #435564;
   text-align: right;
 }
+.message p:nth-last-child(-n+2) {
+  color: #435564;
+  text-align: right;
+}
 
 .currentMessage p:last-child {
   color: #45719f;
   text-align: right;
 }
+
+.currentMessage p:nth-last-child(-n+2) {
+  color: #45719f;
+  text-align: right;
+}
+

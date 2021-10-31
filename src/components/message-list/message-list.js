@@ -1,9 +1,18 @@
+import { useParams } from "react-router";
 import { Input, InputAdornment } from "@mui/material";
 import { Send } from "@mui/icons-material";
+import Outlined from '@mui/icons-material/DeleteOutlined'
 import { createStyles, makeStyles } from "@mui/styles";
-import { useState, useEffect } from "react";
+import {
+  handleChangeMessageValue,
+  messageValueSelector,
+} from "../../store/conversations";
+import { sendMessageWithThunk, messagesSelector } from "../../store/messages";
 import { Message } from "./message";
 import styles from "./message-list.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { useMemo } from "react";
+
 
 const useStyles = makeStyles((ctx) => {
   return createStyles({
@@ -15,22 +24,24 @@ const useStyles = makeStyles((ctx) => {
   });
 });
 
-export const MessageList = ({ messages, sendMessage }) => {
+export const MessageList = () => {
   const s = useStyles();
-
-  const [value, setValue] = useState("");
-
-  const handlePressInput = ({ code }) => {
-    if (code === "Enter" && value) {
-      sendMessage({ value, author: "User" });
-      setValue("");
-    }
-  };
+  const { roomId } = useParams();
+  const messageValue = useMemo(() => messageValueSelector(roomId), [roomId]);
+  const dispatch = useDispatch();
+  const value = useSelector(messageValue);
+  const messages = useSelector(messagesSelector(roomId));
+  
 
   const handleSendMessage = () => {
     if (value) {
-      sendMessage({ value, author: "User" });
-      setValue("");
+      dispatch(sendMessageWithThunk({ author: "User", value }, roomId));
+    }
+  };
+
+  const handlePressInput = ({ code }) => {
+    if (code === "Enter") {
+      handleSendMessage();
     }
   };
 
@@ -38,14 +49,18 @@ export const MessageList = ({ messages, sendMessage }) => {
     <>
       <div>
         {messages.map((message, id) => (
-          <Message key={message.value} message={message} />
+          <>
+            <Message key={message.value} message={message}></Message>
+          </>
         ))}
       </div>
 
       <Input
         className={s.input}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) =>
+          dispatch(handleChangeMessageValue(e.target.value, roomId))
+        }
         placeholder="Введите сообщение..."
         fullWidth={true}
         onKeyPress={handlePressInput}
