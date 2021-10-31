@@ -3,8 +3,7 @@ import { List } from "@mui/material";
 import {
   conversationsSelector,
   createConversation,
-  deleteConversation,
-  deleteConversationWithThunk
+  // deleteConversation,
 } from "../../store/conversations";
 import { Chat } from "./chat";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,10 +21,10 @@ export const ChatList = () => {
     }
   };
 
-  function deleteConversation(title) {
-    // dispatch(deleteConversationWithThunk(roomId));
-    // dispatch(deleteConversation(roomId));
-  }
+  // const deleteConversation = (title) => {
+          // let roomId = title
+  //   // dispatch(deleteConversation(roomId));
+  // }
 
   return (
     <List component="nav">
@@ -39,7 +38,7 @@ export const ChatList = () => {
               {...chat}
             />
           </Link>
-          <button onClick={() => deleteConversation(chat.title)}>Delete</button>
+          {/* <button onClick={() => deleteConversation(chat.title)}>Delete</button> */}
         </>
       ))}
     </List>

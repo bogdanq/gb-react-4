@@ -20,7 +20,7 @@ export const clearMessageValue = (roomId) => ({
   payload: roomId,
 });
 
-// export const deleteConersation = (roomId) => ({
-//   type: DELETE_CONVERSATION,
-//   payload: roomId,
-// });
+export const deleteConersation = (roomId) => ({
+  type: DELETE_CONVERSATION,
+  payload: roomId,
+});

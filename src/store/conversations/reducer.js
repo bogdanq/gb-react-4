@@ -19,6 +19,15 @@ const updateConversations = (state, roomId, value) =>
       : conversation;
   });
 
+  const deleteConersation = (state, roomId) => {
+
+    let conversations = state.conversations;
+    let filteredConversations = conversations.filter((conversation) => conversation.title !== roomId)
+
+    return filteredConversations
+  };
+
+
 export const conversationsReducer = (state = initialState, action) => {
   switch (action.type) {
     case HANDLE_CHANGE_MESSAGE_VALUE:
@@ -44,7 +53,14 @@ export const conversationsReducer = (state = initialState, action) => {
         conversations: updateConversations(state, action.payload, ""),
       };
     case DELETE_CONVERSATION:
-      return state;
+      return {
+        ...state, 
+        conversations: deleteConersation(state, action.payload),
+      };
+
+      // case DELETE_CONVERSATION:
+      // return state
+
     default:
       return state;
   }

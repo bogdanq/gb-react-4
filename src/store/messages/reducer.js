@@ -8,17 +8,10 @@ const initialState = {
 };
 
 const deleteMessage = (state, roomId, value) => {
-  console.log("deleteMessage state", state.messages)
-  console.log("deleteMessage id", roomId)
-  console.log("deleteMessage value", value)
 
   let messages = state.messages[roomId];
 
   let filteredMessages = messages.filter((item) => item.value !== value);
-  
-  // let a = state.messages.room2.filter((el) => {return el.value !== value });
-
-  console.log(filteredMessages)
 
   return filteredMessages
 }
