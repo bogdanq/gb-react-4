@@ -3,11 +3,9 @@ import { sendMessage } from "./actions";
 
 export const sendMessageWithThunk =
   (message, roomId) => (dispatch, getState) => {
-    const c = dispatch(sendMessage(message, roomId));
+    dispatch(sendMessage(message, roomId));
 
     dispatch(clearMessageValue(roomId));
-
-    console.log("c", c);
 
     // if (message.author === "User") {
     //   setTimeout(() => {
@@ -17,3 +15,18 @@ export const sendMessageWithThunk =
     //   }, 500);
     // }
   };
+
+export const getMessagesFB = () => async (dispatch, _, api) => {
+  try {
+    const data = await api.getMessagesApi();
+
+    const messages = {};
+
+    data.forEach((snap) => {
+      messages[snap.key] = Object.values(snap.val());
+    });
+
+    console.log("data", messages);
+    //conversations => messages
+  } catch {}
+};

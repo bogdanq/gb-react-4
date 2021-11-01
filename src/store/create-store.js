@@ -2,11 +2,18 @@ import thunk from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
-import { getGistsApi, searchGistsByUserNameApi } from "../api";
+import {
+  getGistsApi,
+  searchGistsByUserNameApi,
+  getMessagesApi,
+  senMessageApi,
+} from "../api";
+
 import { profileReducer } from "./profile";
 import { conversationsReducer } from "./conversations";
 import { messagesReducer } from "./messages";
 import { gistsReducer } from "./gists";
+import { sessionReducer } from "./session";
 import {
   // thunk,
   logger,
@@ -29,6 +36,7 @@ const persistreducer = persistReducer(
     conversations: conversationsReducer,
     messages: messagesReducer,
     gists: gistsReducer,
+    session: sessionReducer,
   })
 );
 
@@ -38,7 +46,12 @@ export const store = createStore(
     applyMiddleware(
       timeScheduler,
       crashReporter,
-      thunk.withExtraArgument({ getGistsApi, searchGistsByUserNameApi }),
+      thunk.withExtraArgument({
+        getGistsApi,
+        searchGistsByUserNameApi,
+        getMessagesApi,
+        senMessageApi,
+      }),
       logger,
       botSendMessage
     ),

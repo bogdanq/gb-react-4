@@ -22,7 +22,7 @@ export function ChatPage() {
   return (
     <Switch>
       <Route path={["/chat/:roomId", "/chat"]}>
-        <MainTemplate chats={<ChatList />} header={<Header />}>
+        <MainTemplate chats={<ChatList />}>
           <Route path="/chat/:roomId">
             <MessageList />
           </Route>
