@@ -1,6 +1,6 @@
 import { ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { useSelector } from "react-redux";
-import { AccountCircle, Directions } from "@mui/icons-material";
+import { AccountCircle } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
 import { lastMessageSelector } from "../../../store/messages";
 import styles from "./chat.module.css";

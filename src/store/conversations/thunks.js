@@ -1,5 +1,4 @@
 
-import { clearMessageValue } from "../conversations";
 import { deleteConersation } from "./actions";
 
 export const deleteConversationWithThunk =
@@ -7,4 +6,4 @@ export const deleteConversationWithThunk =
   const c = dispatch(deleteConersation(roomId));
 };
 
-// thunks не было
+

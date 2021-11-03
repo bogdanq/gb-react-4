@@ -1,7 +1,6 @@
 import { useParams } from "react-router";
 import { Input, InputAdornment } from "@mui/material";
 import { Send } from "@mui/icons-material";
-import Outlined from '@mui/icons-material/DeleteOutlined'
 import { createStyles, makeStyles } from "@mui/styles";
 import {
   handleChangeMessageValue,
@@ -49,9 +48,7 @@ export const MessageList = () => {
     <>
       <div>
         {messages.map((message, id) => (
-          <>
             <Message key={message.value} message={message}></Message>
-          </>
         ))}
       </div>
 

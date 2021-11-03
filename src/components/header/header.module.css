@@ -1,3 +1,44 @@
 .header {
   height: 50px;
+  padding-bottom: 40px;
+}
+
+.themeButton {
+  background: #0b3d6e;
+  color: #fff;
+  border-radius: 5px;
+  font-family: Trebuchet MS;
+  font-size: 12px;
+  font-weight: 100;
+  padding: 5px;
+  text-shadow: 1px 1px 20px #000000;
+  border: solid #1a4f9b 1px;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  margin: 10px;
+}
+
+.themeButton:hover {
+  border: solid #1a4f9b 1px;
+  background: #0b3d6e;
+  border-radius: 20px;
+  text-decoration: none;
+}
+
+.menu {
+  padding: 10px 0 10px 0;
+}
+
+.menuLinks {
+  color: #FFFFFF;
+  font-size: 16px;
+  text-decoration: none;
+  font-family: Impact, Charcoal, sans-serif;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.menuLinks:hover {
+  color: #9e9e9e;
 }

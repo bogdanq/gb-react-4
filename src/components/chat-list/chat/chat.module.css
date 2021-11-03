@@ -15,10 +15,6 @@
   text-align: right;
 }
 
-/* .description .text:nth-last-child(-n+2) {
-  text-align: right;
-} */
-
 .roomTitle {
   display: flex;
   justify-content: space-between;

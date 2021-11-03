@@ -6,7 +6,6 @@ import { useParams } from "react-router";
 import Outlined from '@mui/icons-material/DeleteOutlined'
 import { deleteMessageWithThunk } from "../../../store/messages";
 import { useDispatch } from "react-redux";
-import { useMemo } from "react";
 
 export const Message = memo(({ message }) => {
   const { author, value } = message;

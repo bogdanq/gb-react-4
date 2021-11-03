@@ -58,9 +58,6 @@ export const conversationsReducer = (state = initialState, action) => {
         conversations: deleteConersation(state, action.payload),
       };
 
-      // case DELETE_CONVERSATION:
-      // return state
-
     default:
       return state;
   }
