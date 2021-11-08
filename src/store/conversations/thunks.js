@@ -1,5 +1,12 @@
+import {
+  getConversationsStart,
+  getConversationsSuccess,
+  getConversationsError,
+} from "./actions";
+
 export const getConversationsFB = () => async (dispatch, _, api) => {
   try {
+    dispatch(getConversationsStart());
     const data = await api.getConversationsApi();
 
     const conversations = [];
@@ -8,8 +15,8 @@ export const getConversationsFB = () => async (dispatch, _, api) => {
       conversations.push(snap.val());
     });
 
-    console.log("data", conversations);
-
-    //conversations => reducer
-  } catch {}
+    dispatch(getConversationsSuccess(conversations));
+  } catch (e) {
+    dispatch(getConversationsError("Ошибка пои получении диалогов"));
+  }
 };

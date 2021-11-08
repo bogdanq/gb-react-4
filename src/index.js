@@ -14,7 +14,6 @@ import {
 import { Header, PrivateRoute, PublicRoute } from "./components";
 import { CustomThemeProvider } from "./contexts";
 import { store, persistor } from "./store";
-import { getMessagesFB } from "./store/messages";
 import { sessionSelector, onAuthStateChanged } from "./store/session";
 
 import "./global.css";
@@ -38,9 +37,6 @@ const App = () => {
 
   useEffect(() => {
     dispatch(onAuthStateChanged());
-  }, [dispatch]);
-  useEffect(() => {
-    dispatch(getMessagesFB());
   }, [dispatch]);
 
   const isAuth = !!session?.email;

@@ -15,7 +15,7 @@ export const Message = memo(({ message }) => {
     >
       <h3>{value}</h3>
       <p>{author}</p>
-      <p>{format(new Date(date), "yyyy-MM-dd")}</p>
+      {/* <p>{format(new Date(date), "yyyy-MM-dd")}</p> */}
     </div>
   );
 });

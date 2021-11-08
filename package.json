@@ -14,7 +14,7 @@
     "axios": "^0.24.0",
     "classnames": "^2.3.1",
     "date-fns": "^2.25.0",
-    "firebase": "^9.2.0",
+    "firebase": "8.10.0",
     "lodash.debounce": "^4.0.8",
     "nanoid": "^3.1.30",
     "prop-types": "^15.7.2",
@@ -32,6 +32,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:coverage": "react-scripts test --coverage",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

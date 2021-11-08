@@ -1,10 +1,14 @@
-import { SEND_MESSAGE } from "./types";
+import {
+  SEND_MESSAGE,
+  GET_MESSAGES_START,
+  GET_MESSAGES_ERROR,
+  GET_MESSAGES_SUCESS,
+} from "./types";
 
 const initialState = {
-  messages: {
-    room1: [{ value: "Room1", author: "Bot", date: new Date() }],
-    room2: [{ value: "Room2", author: "Bot", date: new Date() }],
-  },
+  messages: {},
+  messagesLoading: false,
+  messagesError: null,
 };
 
 export const messagesReducer = (state = initialState, action) => {
@@ -19,6 +23,23 @@ export const messagesReducer = (state = initialState, action) => {
             { ...action.payload.message, date: new Date() },
           ],
         },
+      };
+    case GET_MESSAGES_START:
+      return {
+        ...state,
+        messagesLoading: true,
+      };
+    case GET_MESSAGES_SUCESS:
+      return {
+        ...state,
+        messagesLoading: false,
+        messages: action.payload,
+      };
+    case GET_MESSAGES_ERROR:
+      return {
+        ...state,
+        messagesLoading: false,
+        messagesError: action.payload,
       };
     default:
       return state;

@@ -7,15 +7,14 @@ import {
   searchGistsByUserNameApi,
   getMessagesApi,
   senMessageApi,
+  getConversationsApi,
 } from "../api";
-
 import { profileReducer } from "./profile";
 import { conversationsReducer } from "./conversations";
 import { messagesReducer } from "./messages";
 import { gistsReducer } from "./gists";
 import { sessionReducer } from "./session";
 import {
-  // thunk,
   logger,
   botSendMessage,
   crashReporter,
@@ -29,20 +28,21 @@ const persistConfig = {
   whitelist: ["profile", "conversations"],
 };
 
-const persistreducer = persistReducer(
-  persistConfig,
-  combineReducers({
-    profile: profileReducer,
-    conversations: conversationsReducer,
-    messages: messagesReducer,
-    gists: gistsReducer,
-    session: sessionReducer,
-  })
-);
+export const reducer = combineReducers({
+  profile: profileReducer,
+  conversations: conversationsReducer,
+  messages: messagesReducer,
+  gists: gistsReducer,
+  session: sessionReducer,
+});
+
+const persistreducer = persistReducer(persistConfig, reducer);
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export const store = createStore(
   persistreducer,
-  compose(
+  composeEnhancers(
     applyMiddleware(
       timeScheduler,
       crashReporter,
@@ -51,11 +51,11 @@ export const store = createStore(
         searchGistsByUserNameApi,
         getMessagesApi,
         senMessageApi,
+        getConversationsApi,
       }),
       logger,
       botSendMessage
-    ),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
   )
 );
 

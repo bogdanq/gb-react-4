@@ -1,5 +1,10 @@
 import { clearMessageValue } from "../conversations";
-import { sendMessage } from "./actions";
+import {
+  sendMessage,
+  getMessagesStart,
+  getMessagesSuccess,
+  getMessagesError,
+} from "./actions";
 
 export const sendMessageWithThunk =
   (message, roomId) => (dispatch, getState) => {
@@ -18,6 +23,7 @@ export const sendMessageWithThunk =
 
 export const getMessagesFB = () => async (dispatch, _, api) => {
   try {
+    dispatch(getMessagesStart());
     const data = await api.getMessagesApi();
 
     const messages = {};
@@ -26,7 +32,8 @@ export const getMessagesFB = () => async (dispatch, _, api) => {
       messages[snap.key] = Object.values(snap.val());
     });
 
-    console.log("data", messages);
-    //conversations => messages
-  } catch {}
+    dispatch(getMessagesSuccess(messages));
+  } catch {
+    dispatch(getMessagesError("Ошибка при получении сообщений"));
+  }
 };

@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+// import { format } from "date-fns";
 import { ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { useSelector } from "react-redux";
 import { AccountCircle } from "@mui/icons-material";
@@ -42,10 +42,10 @@ export function Chat({ title, selected, handleListItemClick }) {
               className={styles.text}
               primary={`${lastMessage.author}: ${lastMessage.value}`}
             />
-            <ListItemText
+            {/* <ListItemText
               className={styles.text}
-              primary={format(new Date(lastMessage.date), "yyyy-MM-dd")}
-            />
+              primary={format(new Date(lastMessage?.date), "yyyy-MM-dd")}
+            /> */}
           </>
         )}
       </div>
